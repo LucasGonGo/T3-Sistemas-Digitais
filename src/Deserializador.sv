@@ -38,10 +38,12 @@ always@(posedge clock_100KHz, posedge reset) begin
             end // READING 
 
             WAITING:begin   
-                if(ack_in && status_out) begin
+                if(ack_in) begin
                     EA <= READING;
+                    status_out <= 1;
                 end else begin
                         EA <= WAITING;
+                        status_out <= 0;
                 end
             end // WAITING
 
@@ -56,7 +58,6 @@ always@(posedge clock_100KHz, posedge reset) begin
         if(reset) begin
             data_out <= 0;
             data_ready <= 0;
-            status_out <= 0;
             count <= 0;
         end // if reset
         else begin

@@ -3,6 +3,7 @@ Module TOP{ // ligar os dois e gerar clocks // ins e outs são para o tb!!!
     input logic rst,
     input logic data_in,
     input logic write_in,
+    input logic enqueue_in,
     input logic dequeue_in,
     output logic status_out,
     output logic data_out
@@ -10,7 +11,8 @@ Module TOP{ // ligar os dois e gerar clocks // ins e outs são para o tb!!!
 
 logic link_data;
 logic link_enable_data;
-logic check_ack;
+logic check_ack = 0;
+logic len_out;
 
 DESERIALIZADOR des{
     .reset(rst),
@@ -19,7 +21,7 @@ DESERIALIZADOR des{
     .write_in(write_in),
     .data_ready(link_enable_data),
     .data_out(link_data),
-    .ack_in(ack_in), // enable da fila, ativa quando termina de arrumar a fila
+    .ack_in(check_ack), // enable da fila, ativa quando termina de arrumar a fila
     .status_out(status_out)
 };
 
@@ -30,7 +32,7 @@ FILA queue{
     .enqueue_in(link_enable_data),
     .data_out(data_out), 
     .dequeue_in(dequeue_in),
-    .len_out(check_ack)
+    .len_out(len_out)
 };
 
 
@@ -63,6 +65,10 @@ FILA queue{
             end
         end
     end
-// cria o ack do deserializador, usa o len_out como base, quando len_out++, ack = 1
+
+    always@(len_out) begin
+        check_ack <= ~check_ack;  // talvez?, acho que ele não zera
+    end
+    // cria o ack do deserializador, usa o len_out como base, quando len_out++, ack = 1
 
 endmodule

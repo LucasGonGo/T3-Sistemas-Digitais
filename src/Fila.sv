@@ -84,7 +84,7 @@ always@(posedge clock_10KHz, posedge reset) begin
             ENQUEUE:begin
                 if(len_out < 4'd8) begin
                     queue[tail_ptr] <= data_in;
-                    tail_ptr <= (head_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
+                    tail_ptr <= (tail_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out + 1;
                 end // if len < 8
                 else begin
