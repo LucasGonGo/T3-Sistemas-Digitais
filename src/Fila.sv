@@ -1,4 +1,4 @@
-Module FILA( // 8 espaços de 8 bits
+module FILA( // 8 espaços de 8 bits
     input logic reset,
     input logic clock_10KHz,   // 10khz = 10.10³
     input bit data_in,

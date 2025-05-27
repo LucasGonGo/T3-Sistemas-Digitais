@@ -1,4 +1,4 @@
-Module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
+module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
     input logic clock_1MHz, // 1MHz = 10⁶
     input logic rst,
     input logic data_in,
