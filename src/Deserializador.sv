@@ -22,6 +22,7 @@ typedef enum logic [1:0] {
 } state_des;
 
 state_des EA = WAITING;
+logic [3:0]count;
 
 always@(posedge clock_100KHz, posedge reset) begin
     if(reset) begin
@@ -53,7 +54,6 @@ always@(posedge clock_100KHz, posedge reset) begin
     end // else (if reset)
 end // end FSM
 
-logic [3:0]count;
 
 always@(posedge clock_100KHz, posedge reset) begin
         if(reset) begin
