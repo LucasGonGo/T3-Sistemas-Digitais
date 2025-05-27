@@ -13,6 +13,8 @@ logic link_data;
 logic link_enable_data;
 logic check_ack = 0;
 logic [3:0]len_out;
+logic clk_100KHz; // questa diz que não pode e reclama se não tem...
+logic clk_10KHz;
 
 DESERIALIZADOR des(
     .reset(rst),
