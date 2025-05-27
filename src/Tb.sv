@@ -12,7 +12,7 @@ logic enqueue_in;
 logic dequeue_in;
 
 
-TOP dut{
+TOP dut(
     .clock_1MHz(clk), // 1MHz = 10⁶
     .rst(rst),
     .data_in(data_in),
@@ -21,7 +21,7 @@ TOP dut{
     .enqueue_in(enqueue_in),
     .status_out(status),
     .data_out(data_out)
-};
+);
 
 always #500 clk = ~clk; // 1MHz = 1us = 1000ns, muda o sinal na metade do periodo total (500ns).
 
