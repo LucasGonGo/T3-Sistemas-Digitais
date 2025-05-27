@@ -4,11 +4,11 @@ vmap work work
 
 set TOP_ENTITY {work.tb}
 
-vlog -work work TOP.sv
-vlog -work work FILA.sv
-vlog -work work DESERIALIZADOR.sv
+vlog -work work Top.sv
+vlog -work work Fila.sv
+vlog -work work Deserializador.sv
 
-vlog -work work tb.sv
+vlog -work work Tb.sv
 
 vsim -voptargs=+acc ${TOP_ENTITY}
 
