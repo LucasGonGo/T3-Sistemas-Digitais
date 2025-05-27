@@ -1,9 +1,9 @@
 module FILA( // 8 espaços de 8 bits
     input logic reset,
     input logic clock_10KHz,   // 10KHz = 10.10³
-    input bit data_in,
-    input bit enqueue_in,
-    input bit dequeue_in,
+    input [7:0] data_in,
+    input logic enqueue_in,
+    input logic dequeue_in,
     output reg[7:0] data_out, 
     output reg[2:0] len_out
 );
@@ -21,7 +21,7 @@ typedef enum logic [1:0]{
     DEQUEUE
 } state_queue;
 
-state_queue EA <= WAITING;
+state_queue EA;
 
 logic [7:0] queue [7:0];
 logic done_dequeueing, done_queueing; // sinais que terminou o queue ou dequeue
@@ -75,6 +75,8 @@ always@(posedge clock_10KHz, posedge reset) begin
         is_full <= 0;
     end // if reset
     else begin 
+        done_dequeueing <= 0;
+        done_queueing <= 0;
         case(EA)
             WAITING:begin
                 done_dequeueing <= 0;
@@ -82,23 +84,23 @@ always@(posedge clock_10KHz, posedge reset) begin
             end
 
             ENQUEUE:begin
-                if(len_out < 4'd8) begin
+                if(len_out < 3'd8) begin
                     queue[tail_ptr] <= data_in;
                     tail_ptr <= (tail_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out + 1;
+                    done_queueing <= 1;
                 end // if len < 8
-                else begin
-                    is_full <= 1;
-                end
             end
             DEQUEUE:begin
                 if(len_out > 4'd0) begin
                     data_out <= queue[head_ptr];
                     head_ptr<= (head_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out - 1;
+                    done_dequeueing <= 1;
                 end // if len < 8
                 else begin
-                    data_out <= 0;
+                    data_out <= 8'b0; // isso seria um erro, fila vazia
+                    done_dequeueing <= 1;
                 end
             end
 

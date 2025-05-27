@@ -12,7 +12,7 @@ module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
 logic link_data;
 logic link_enable_data;
 logic check_ack = 0;
-logic len_out;
+logic [3:0]len_out;
 
 DESERIALIZADOR des(
     .reset(rst),
@@ -39,7 +39,6 @@ FILA queue(
     // faz um clock de 100k e um de 10k com base em um de 1M
     // t = 1/f, f = 1Mhz e t = 1 μs, para termos 10k, temos que dividir o t por 100, então contamos até 50 (1/2 periodo) para trocarmos o sinal, já para 100k temos que dividir t por 10, então contamos até 5 (dnv, 1/2 do periodo).
 
-    logic clk_100KHz, clk_10KHz; // passa os clks para os modulos deles
     logic [3:0] count_100KHz = 0; // count de 0 a 4
     logic [6:0] count_10KHz = 0;  // count de 0 a 49
 

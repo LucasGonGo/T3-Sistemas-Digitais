@@ -2,11 +2,11 @@ module DESERIALIZADOR(
     input logic reset,
     input logic clock_100KHz, // 100KHz = 100.10³
     input bit data_in,
-    input bit write_in,
-    output bit data_ready,
+    input logic write_in,
+    output logic data_ready,
     output reg[7:0] data_out,
-    input  bit ack_in, // enable da fila, ativa quando termina de arrumar a fila
-    output bit status_out
+    input  logic ack_in, // enable da fila, ativa quando termina de arrumar a fila
+    output logic status_out
 );
 
 /*DESERIALIZADOR: Responsável por receber uma sequência de bits através do sinal
@@ -30,8 +30,9 @@ always@(posedge clock_100KHz, posedge reset) begin
     else begin
         case(EA) 
             READING:begin
-                if(write_in) begin 
+                if(write_in && count == 4'd8) begin 
                     EA <= WAITING;
+                    status_out <= 0;
                 end else begin
                           EA <= READING;
                 end
@@ -52,7 +53,7 @@ always@(posedge clock_100KHz, posedge reset) begin
     end // else (if reset)
 end // end FSM
 
-logic count;
+logic [3:0]count;
 
 always@(posedge clock_100KHz, posedge reset) begin
         if(reset) begin
@@ -63,11 +64,11 @@ always@(posedge clock_100KHz, posedge reset) begin
         else begin
             case(EA) 
                 READING:begin
-                    if(count < 8) begin
+                    if(count < 4'd8) begin
                         data_out[count] <= data_in;
                         count <= count + 1;
                     end        
-                    else begin
+                    else if(count == 4'd7) begin
                         data_ready <= 1;
                     end
                 end // READING 
