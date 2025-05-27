@@ -16,4 +16,4 @@ quietly set StdArithNoWarnings 1
 quietly set StdVitalGlitchNoWarnings 1
 
 do wave.do
-run 100ns
+run 1ms
