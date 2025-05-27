@@ -2,13 +2,13 @@ if {[file isdirectory work]} {vdel -all -lib work}
 vlib work
 vmap work work
 
-set TOP_ENTITY {work.Tb}
+set TOP_ENTITY {work.tb}
 
-vlog -work work Top.sv
-vlog -work work Fila.sv
-vlog -work work Deserializador.sv
+vlog -work work TOP.sv
+vlog -work work FILA.sv
+vlog -work work DESERIALIZADOR.sv
 
-vlog -work work Tb.sv
+vlog -work work tb.sv
 
 vsim -voptargs=+acc ${TOP_ENTITY}
 
