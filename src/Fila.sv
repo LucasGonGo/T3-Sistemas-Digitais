@@ -1,4 +1,4 @@
-Module FILA{ // 8 espaços de 8 bits
+Module FILA( // 8 espaços de 8 bits
     input logic reset,
     input logic clock_10KHz,   // 10khz = 10.10³
     input bit data_in,
@@ -6,7 +6,7 @@ Module FILA{ // 8 espaços de 8 bits
     input bit dequeue_in,
     output reg[7:0] data_out, 
     output reg[2:0] len_out
-};
+);
 
 /*FILA: Representa um container de tamanho limitado do tipo LIFO de 8 bits. Os elementos são
 inseridos na fila através dos sinais data_in e enqueue_in. Para remover um elemento da fila,

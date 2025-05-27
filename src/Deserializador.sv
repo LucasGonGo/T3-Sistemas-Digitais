@@ -1,4 +1,4 @@
-Module DESERIALIZADOR{
+Module DESERIALIZADOR(
     input logic reset,
     input logic clock_100KHz, // 100Khz = 100.10³
     input bit data_in,
@@ -7,7 +7,7 @@ Module DESERIALIZADOR{
     output reg[7:0] data_out,
     input  bit ack_in, // enable da fila, ativa quando termina de arrumar a fila
     output bit status_out
-};
+);
 
 /*DESERIALIZADOR: Responsável por receber uma sequência de bits através do sinal
 data_in e escrever palavras de 8 bits no sinal data_out. O sinal status_out indica se o

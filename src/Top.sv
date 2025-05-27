@@ -1,4 +1,4 @@
-Module TOP{ // ligar os dois e gerar clocks // ins e outs são para o tb!!!
+Module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
     input logic clock_1MHz, // 1MHz = 10⁶
     input logic rst,
     input logic data_in,
@@ -7,14 +7,14 @@ Module TOP{ // ligar os dois e gerar clocks // ins e outs são para o tb!!!
     input logic dequeue_in,
     output logic status_out,
     output logic data_out
-};
+);
 
 logic link_data;
 logic link_enable_data;
 logic check_ack = 0;
 logic len_out;
 
-DESERIALIZADOR des{
+DESERIALIZADOR des(
     .reset(rst),
     .clock_100KHz(clk_100KHz), // 100Khz = 100.10³
     .data_in(data_in),
@@ -23,9 +23,9 @@ DESERIALIZADOR des{
     .data_out(link_data),
     .ack_in(check_ack), // enable da fila, ativa quando termina de arrumar a fila
     .status_out(status_out)
-};
+);
 
-FILA queue{
+FILA queue(
     .reset(rst),
     .clock_10KHz(clk_10KHz),   // 10khz = 10.10³
     .data_in(link_data),
@@ -33,7 +33,7 @@ FILA queue{
     .data_out(data_out), 
     .dequeue_in(dequeue_in),
     .len_out(len_out)
-};
+);
 
 
     // faz um clock de 100k e um de 10k com base em um de 1M
