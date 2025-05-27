@@ -36,24 +36,24 @@ initial begin
         #2000;
         rst = 0;
 
-        #5000;
+        #2000;
 
         for (int i = 0; i < 8; i++) begin // manda de 0 a 7 esperando o status_out ficar alto
             wait (status == 1);   
             write_in = 1;
-            data_in = i[0];       
+            data_in = i;       
             #1000;                
             write_in = 0;
             #1000;
         end
         
-        #10000;
+        #5000;
 
         dequeue_in = 1; // manda retirar da fila
         #1000;
         dequeue_in = 0;
 
-        #10000;
+        #5000;
 
         $finish;
     end
