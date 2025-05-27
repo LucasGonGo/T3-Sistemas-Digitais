@@ -16,7 +16,7 @@ logic len_out;
 
 DESERIALIZADOR des(
     .reset(rst),
-    .clock_100KHz(clk_100KHz), // 100Khz = 100.10³
+    .clock_100KHz(clk_100KHz), // 100KHz = 100.10³
     .data_in(data_in),
     .write_in(write_in),
     .data_ready(link_enable_data),
@@ -27,7 +27,7 @@ DESERIALIZADOR des(
 
 FILA queue(
     .reset(rst),
-    .clock_10KHz(clk_10KHz),   // 10khz = 10.10³
+    .clock_10KHz(clk_10KHz),   // 10KHz = 10.10³
     .data_in(link_data),
     .enqueue_in(link_enable_data),
     .data_out(data_out), 
@@ -45,23 +45,23 @@ FILA queue(
 
     always_ff @(posedge clock_1MHz) begin
         if (rst) begin
-            count_100kHz <= 0;
-            count_10kHz  <= 0;
-            clk_100kHz   <= 0;
-            clk_10kHz    <= 0;
+            count_100KHz <= 0;
+            count_10KHz  <= 0;
+            clk_100KHz   <= 0;
+            clk_10KHz    <= 0;
         end else begin
-            if (count_100kHz == 4'd4) begin // conta de 0 a 4, então, quando for 4, muda o sinal do clk
-                clk_100kHz <= ~clk_100kHz; // muda sinal
-                count_100kHz <= 0;         // zera o count
+            if (count_100KHz == 4'd4) begin // conta de 0 a 4, então, quando for 4, muda o sinal do clk
+                clk_100KHz <= ~clk_100KHz; // muda sinal
+                count_100KHz <= 0;         // zera o count
             end else begin
-                count_100kHz <= count_100kHz + 1; // count++
+                count_100KHz <= count_100KHz + 1; // count++
             end
 
-            if (count_10kHz == 7'd49) begin  // conta de 0 a 49, então, quando for 49, muda o clk
-                clk_10kHz <= ~clk_10kHz; // muda sinal
-                count_10kHz <= 0;        // zera o count
+            if (count_10KHz == 7'd49) begin  // conta de 0 a 49, então, quando for 49, muda o clk
+                clk_10KHz <= ~clk_10KHz; // muda sinal
+                count_10KHz <= 0;        // zera o count
             end else begin
-                count_10kHz <= count_10kHz + 1; // count++
+                count_10KHz <= count_10KHz + 1; // count++
             end
         end
     end

@@ -1,6 +1,6 @@
 module DESERIALIZADOR(
     input logic reset,
-    input logic clock_100KHz, // 100Khz = 100.10³
+    input logic clock_100KHz, // 100KHz = 100.10³
     input bit data_in,
     input bit write_in,
     output bit data_ready,
