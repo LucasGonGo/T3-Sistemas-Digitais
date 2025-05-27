@@ -72,7 +72,6 @@ always@(posedge clock_10KHz, posedge reset) begin
         tail_ptr <= 0;
         data_out <= 0;
         len_out <= 0;
-        is_full <= 0;
     end // if reset
     else begin 
         done_dequeueing <= 0;
