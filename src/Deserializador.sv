@@ -27,6 +27,7 @@ logic [3:0]count;
 always@(posedge clock_100KHz, posedge reset) begin
     if(reset) begin
         EA <= READING;
+        status_out <= 1;
     end // if reset 
     else begin
         case(EA) 
@@ -36,6 +37,7 @@ always@(posedge clock_100KHz, posedge reset) begin
                     status_out <= 0;
                 end else begin
                           EA <= READING;
+                          status_out <= 1;
                 end
             end // READING 
 
