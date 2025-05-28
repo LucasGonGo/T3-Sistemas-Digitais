@@ -50,11 +50,11 @@ initial begin
         #5000;
 
         enqueue_in = 1; // manda colocar na fila
-        #1000;
+        #5000;
         enqueue_in = 0;
-        #2000;
+        #5000;
         dequeue_in = 1;
-        #1000;
+        #5000;
         dequeue_in = 0;
     
 
