@@ -52,8 +52,11 @@ initial begin
         enqueue_in = 1; // manda colocar na fila
         #1000;
         enqueue_in = 0;
-
-        #5000;
+        #2000;
+        dequeue_in = 1;
+        #1000;
+        dequeue_in = 0;
+    
 
         $finish;
     end
