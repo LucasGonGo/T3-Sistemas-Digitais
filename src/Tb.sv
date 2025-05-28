@@ -41,7 +41,7 @@ initial begin
         for (int i = 0; i < 8; i++) begin // manda de 0 a 7 esperando o status_out ficar alto
             wait (status == 1);   
             write_in = 1;
-            data_in = i;       
+            data_in = i; // vai alternando entre 0 e 1, escreve 8 vezes      
             #1000;                
             write_in = 0;
             #1000;
@@ -49,9 +49,9 @@ initial begin
         
         #5000;
 
-        dequeue_in = 1; // manda retirar da fila
+        enqueue_in = 1; // manda colocar na fila
         #1000;
-        dequeue_in = 0;
+        enqueue_in = 0;
 
         #5000;
 

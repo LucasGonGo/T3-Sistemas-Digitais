@@ -19,7 +19,7 @@ add wave -hex tb.status
 add wave -hex tb.data_out
 
 # Caso queira ver os sinais internos do DUT, descomente:
-# add wave -recursive tb.dut
+add wave -recursive tb.dut
 
 # Zoom para o início
 run 0
