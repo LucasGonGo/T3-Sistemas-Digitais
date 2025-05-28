@@ -85,20 +85,24 @@ always@(posedge clock_10KHz, posedge reset) begin
             ENQUEUE:begin
                 if(len_out < 3'd8) begin
                     queue[tail_ptr] <= data_in;
+                    $display("data_in: %s queue: %s \n", data_in, queue[tail_ptr]);
                     tail_ptr <= (tail_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out + 1;
                     done_queueing <= 1;
                 end // if len < 8
             end
+
             DEQUEUE:begin
-                if(len_out > 4'd0) begin
+                if(len_out > 0) begin
                     data_out <= queue[head_ptr];
+                    $display("data_out: %s queue: %s \n", data_in, queue[head_ptr]);
                     head_ptr<= (head_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out - 1;
                     done_dequeueing <= 1;
                 end // if len < 8
                 else begin
                     data_out <= 8'b0; // isso seria um erro, fila vazia
+                    $display("erro, fila menos que 0");
                     done_dequeueing <= 1;
                 end
             end

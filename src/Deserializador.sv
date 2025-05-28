@@ -69,14 +69,17 @@ always@(posedge clock_100KHz, posedge reset) begin
                     if(count < 4'd8) begin
                         data_out[count] <= data_in;
                         count <= count + 1;
+                        $display("recebendo: %b\n", data_in);
                     end        
                     else if(count == 4'd7) begin
                         data_ready <= 1;
+                        $display("data_out: %s\n", data_out);
                     end
                 end // READING 
 
                 WAITING:begin   
                     if(ack_in) begin
+                        $display("ack_in == 1")
                         data_out <= 0;
                         data_ready <= 0;
                         count <= 0;
