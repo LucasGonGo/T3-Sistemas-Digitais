@@ -79,7 +79,7 @@ always@(posedge clock_100KHz, posedge reset) begin
 
                 WAITING:begin   
                     if(ack_in) begin
-                        $display("ack_in == 1")
+                        $display("ack_in == 1");
                         data_out <= 0;
                         data_ready <= 0;
                         count <= 0;
