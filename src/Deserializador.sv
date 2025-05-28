@@ -70,11 +70,11 @@ always@(posedge clock_100KHz, posedge reset) begin
                         data_out[count] <= data_in;
                         count <= count + 1;
                         $display("recebendo: %b\n", data_in);
-                        $display("data_out: %s\n", data_out);
+                        $display("data_out: %b\n", data_out);
                     end        
                     else if(count == 4'd7) begin
                         data_ready <= 1;
-                        $display("data_out: %s\n", data_out);
+                        $display("data_out: %b\n", data_out);
                     end
                 end // READING 
 
