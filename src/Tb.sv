@@ -6,7 +6,7 @@ logic clk;
 logic rst;
 logic data_in;
 logic status;
-logic data_out;
+logic [7:0] data_out;
 logic write_in;
 logic enqueue_in;
 logic dequeue_in;

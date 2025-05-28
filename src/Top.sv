@@ -6,7 +6,7 @@ module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
     input logic enqueue_in,
     input logic dequeue_in,
     output logic status_out,
-    output logic [7:0]data_out
+    output logic [7:0] data_out
 );
 
 logic [7:0]link_data;
