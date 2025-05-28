@@ -4,8 +4,8 @@ module FILA( // 8 espaços de 8 bits
     input [7:0] data_in,
     input logic enqueue_in,
     input logic dequeue_in,
-    output reg[7:0] data_out, 
-    output reg[2:0] len_out
+    output logic[7:0] data_out, 
+    output logic[3:0] len_out
 );
 
 /*FILA: Representa um container de tamanho limitado do tipo LIFO de 8 bits. Os elementos são
