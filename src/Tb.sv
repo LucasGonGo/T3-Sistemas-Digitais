@@ -33,32 +33,29 @@ initial begin
         enqueue_in = 0;
         dequeue_in = 0;
 
-        #2000;
+        #2500;
         rst = 0;
-
-        #2000;
-
-        for (int i = 0; i < 8; i++) begin // manda de 0 a 7 esperando o status_out ficar alto
-            wait (status == 1);   
-            write_in = 1;
-            data_in = i; // vai alternando entre 0 e 1, escreve 8 vezes      
-            #1000;                
-            write_in = 0;
-            #1000;
-        end
-        
-        #5000;
-
-        enqueue_in = 1; // manda colocar na fila
-        #5000;
-        enqueue_in = 0;
-        #5000;
-        dequeue_in = 1;
-        #5000;
-        dequeue_in = 0;
+        #4000;
+        // manda de 0 a 7 esperando o status_out ficar alto
+        write_in = 1;
+        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
+        #2500;                
+        data_in = 0;
+        #2500;
+        data_in = 1;
+        #2500;
+        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
+        #2500;                
+        data_in = 0;
+        #2500;
+        data_in = 1;
+        #2500;
+        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
+        #2500;                
+        data_in = 0;
+        #2500;
+        write_in = 0;
     
-
-        $finish;
     end
 
 endmodule

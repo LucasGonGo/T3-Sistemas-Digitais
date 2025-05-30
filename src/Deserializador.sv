@@ -27,12 +27,12 @@ logic [3:0]count;
 always@(posedge clock_100KHz, posedge reset) begin
     if(reset) begin
         EA <= READING;
-        status_out <= 1;
+        status_out <= 0;
     end // if reset 
     else begin
         case(EA) 
             READING:begin
-                if(write_in && count == 4'd8) begin 
+                if(data_ready && count == 4'd8) begin //era write_in, coloquei data_ready
                     EA <= WAITING;
                     status_out <= 0;
                 end else begin
@@ -71,10 +71,11 @@ always@(posedge clock_100KHz, posedge reset) begin
                         count <= count + 1;
                         $display("recebendo: %b\n", data_in);
                         $display("data_out: %b\n", data_out);
+                        $display("status: %b\n", status_out);
                     end        
                     else if(count == 4'd7) begin
                         data_ready <= 1;
-                        $display("data_out: %b\n", data_out);
+                        $display("ta pronto! data_out: %b\n", data_out);
                     end
                 end // READING 
 
