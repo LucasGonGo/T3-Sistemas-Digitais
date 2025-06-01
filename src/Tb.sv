@@ -26,36 +26,33 @@ TOP dut(
 always #500 clk = ~clk; // 1MHz = 1us = 1000ns, muda o sinal na metade do periodo total (500ns).
 
 initial begin
-        clk = 0;
-        rst = 1;
-        data_in = 0;
-        write_in = 0;
-        enqueue_in = 0;
-        dequeue_in = 0;
+    rst = 1;
+    data_in = 0;
+    write_in = 0;
+    enqueue_in = 0;
+    dequeue_in = 0;
+    #2500;
+    rst = 0;
 
-        #2500;
-        rst = 0;
-        #4000;
-        // manda de 0 a 7 esperando o status_out ficar alto
-        write_in = 1;
-        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
-        #2500;                
-        data_in = 0;
-        #2500;
-        data_in = 1;
-        #2500;
-        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
-        #2500;                
-        data_in = 0;
-        #2500;
-        data_in = 1;
-        #2500;
-        data_in = 1; // vai alternando entre 0 e 1, escreve 8 vezes      
-        #2500;                
-        data_in = 0;
-        #2500;
-        write_in = 0;
-    
+    #4000;
+
+    forever begin
+        @(posedge status);
+        
+        integer i;
+        logic [7:0] send_data = 8'b10101010;
+
+        for(i = 0; i<8; i++) begin
+
+            data_in = send_data[i];
+            write_in = 1;
+            #10000;
+            write_in = 0;
+            #10000;
+            
+        end
+        @(negedge status);
     end
+end
 
 endmodule

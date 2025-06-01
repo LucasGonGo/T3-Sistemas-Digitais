@@ -24,38 +24,6 @@ typedef enum logic [1:0] {
 state_des EA = WAITING;
 logic [3:0]count;
 
-always@(posedge clock_100KHz, posedge reset) begin
-    if(reset) begin
-        EA <= READING;
-        status_out <= 0;
-    end // if reset 
-    else begin
-        case(EA) 
-            READING:begin
-                if(data_ready && count == 4'd8) begin //era write_in, coloquei data_ready
-                    EA <= WAITING;
-                    status_out <= 0;
-                end else begin
-                          EA <= READING;
-                          status_out <= 1;
-                end
-            end // READING 
-
-            WAITING:begin   
-                if(ack_in) begin
-                    EA <= READING;
-                    status_out <= 1;
-                end else begin
-                        EA <= WAITING;
-                        status_out <= 0;
-                end
-            end // WAITING
-
-        endcase
-
-    end // else (if reset)
-end // end FSM
-
 
 always@(posedge clock_100KHz, posedge reset) begin
         if(reset) begin
@@ -66,25 +34,27 @@ always@(posedge clock_100KHz, posedge reset) begin
         else begin
             case(EA) 
                 READING:begin
-                    if(count < 4'd8) begin
+                    if(write_in) begin
                         data_out[count] <= data_in;
                         count <= count + 1;
-                        $display("recebendo: %b\n", data_in);
-                        $display("data_out: %b\n", data_out);
-                        $display("status: %b\n", status_out);
+                        if(count == 4'd7) begin
+                            data_ready <= 1;
+                            status_out <= 0;
+                            EA <= WAITING;
+                        end else
+                            begin
+                                status_out <= 1;
+                            end
                     end        
-                    else if(count == 4'd7) begin
-                        data_ready <= 1;
-                        $display("ta pronto! data_out: %b\n", data_out);
-                    end
                 end // READING 
 
                 WAITING:begin   
                     if(ack_in) begin
-                        $display("ack_in == 1");
                         data_out <= 0;
                         data_ready <= 0;
                         count <= 0;
+                        EA <= READING;
+                        status_out <= 1;
                     end
                 end // WAITING
             endcase
