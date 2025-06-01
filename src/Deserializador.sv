@@ -21,7 +21,7 @@ typedef enum logic [1:0] {
     WAITING
 } state_des;
 
-state_des EA = WAITING;
+state_des EA = READING;
 logic [3:0]count;
 
 

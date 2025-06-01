@@ -34,9 +34,9 @@ initial begin
     write_in = 0;
     enqueue_in = 0;
     dequeue_in = 0;
+
     #2500;
     rst = 0;
-
     #4000;
 
     forever begin

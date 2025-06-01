@@ -11,7 +11,7 @@ module TOP( // ligar os dois e gerar clocks // ins e outs são para o tb!!!
 
 logic [7:0]link_data;
 logic link_enable_data;
-logic check_ack = 0;
+logic check_ack = 1;
 logic [3:0]len_out;
 logic [3:0]len_out_prev;
 logic clk_100KHz; // questa diz que não pode e reclama se não tem...
