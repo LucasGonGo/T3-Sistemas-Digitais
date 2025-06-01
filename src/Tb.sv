@@ -35,8 +35,7 @@ initial begin
     enqueue_in = 0;
     dequeue_in = 0;
     #2500;
-    rst = 0;ack_in
-ack_in
+    rst = 0;
 
     #4000;
 
