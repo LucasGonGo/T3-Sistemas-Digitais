@@ -13,6 +13,7 @@ logic [7:0]link_data;
 logic link_enable_data;
 logic check_ack = 0;
 logic [3:0]len_out;
+logic [3:0]len_out_prev;
 logic clk_100KHz; // questa diz que não pode e reclama se não tem...
 logic clk_10KHz;
 
@@ -67,8 +68,18 @@ FILA queue(
         end
     end
 
-    always@(len_out) begin
-        check_ack <= ~check_ack;  // talvez?, acho que ele não zera
+    always@(posedge clock_1MHz, posedge rst) begin // guarda o len antigo para comparar com o novo
+        if(rst) begin
+            len_out_prev <= 0;
+            check_ack <= 0;
+        end else begin
+            if (len_out > len_out_prev) begin
+                check_ack <= 1;
+            end else begin
+                check_ack <= 0;
+            end
+                len_out_prev <= len_out;
+        end
     end
     // cria o ack do deserializador, usa o len_out como base, quando len_out++, ack = 1
 

@@ -26,7 +26,7 @@ TOP dut(
 always #500 clk = ~clk; // 1MHz = 1us = 1000ns, muda o sinal na metade do periodo total (500ns).
 
     integer i;
-    logic [7:0] send_data = 8'b10101010;
+    logic [7:0] send_data = 8'b10011001;
 
 initial begin
     rst = 1;
@@ -35,7 +35,8 @@ initial begin
     enqueue_in = 0;
     dequeue_in = 0;
     #2500;
-    rst = 0;
+    rst = 0;ack_in
+ack_in
 
     #4000;
 
@@ -49,10 +50,11 @@ initial begin
             #10000;
             write_in = 0;
             #10000;
-
         end
 
         @(negedge status);
+            enqueue_in = 1;
+            #100000;
     end
 end
 
