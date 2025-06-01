@@ -36,11 +36,11 @@ initial begin
 
     #4000;
 
+    integer i;
+    logic [7:0] send_data = 8'b10101010;
+
     forever begin
         @(posedge status);
-        
-        integer i;
-        logic [7:0] send_data = 8'b10101010;
 
         for(i = 0; i<8; i = i+1) begin
 
@@ -51,7 +51,7 @@ initial begin
             #10000;
 
         end
-        
+
         @(negedge status);
     end
 end
