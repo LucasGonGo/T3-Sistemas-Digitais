@@ -42,15 +42,16 @@ initial begin
         integer i;
         logic [7:0] send_data = 8'b10101010;
 
-        for(i = 0; i<8; i++) begin
+        for(i = 0; i<8; i = i+1) begin
 
             data_in = send_data[i];
             write_in = 1;
             #10000;
             write_in = 0;
             #10000;
-            
+
         end
+        
         @(negedge status);
     end
 end
