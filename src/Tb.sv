@@ -37,7 +37,7 @@ initial begin
     #2500;
     rst = 0;
 
-    #4000;
+    #10000;
 
     forever begin
         @(posedge status);
