@@ -2,7 +2,7 @@
 
 module tb #();
 
-logic clk;
+logic clk = 0;
 logic rst;
 logic data_in;
 logic status;
