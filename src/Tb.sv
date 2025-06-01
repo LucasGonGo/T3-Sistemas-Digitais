@@ -53,8 +53,19 @@ ack_in
         end
 
         @(negedge status);
+            #200_000;
+
             enqueue_in = 1;
-            #100000;
+            #100_000;
+            enqueue_in = 0;
+
+            #200_000;
+
+            dequeue_in = 1;
+            #100_000;
+            dequeue_in = 0;
+
+            #200_000;
     end
 end
 
