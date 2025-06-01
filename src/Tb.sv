@@ -37,11 +37,11 @@ initial begin
     #2500;
     rst = 0;
 
-    #10000;
+    #4000;
 
     forever begin
         @(posedge status);
-
+        #10000;
         for(i = 0; i<8; i = i+1) begin
 
             data_in = send_data[i];
