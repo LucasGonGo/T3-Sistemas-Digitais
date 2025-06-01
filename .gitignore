@@ -1,0 +1,41 @@
+# === QuestaSim / ModelSim ===
+*.ini
+*.wlf
+*.log
+*.vstf
+*.vcd
+*.vpd
+transcript
+vsim.dbg
+vsim.saif
+*.qdb
+*.qpg
+*.qtl
+src/work/
+work/
+modelsim.ini
+vsim.wlf
+
+# === VS Code ===
+.vscode/
+*.code-workspace
+
+# === Arquivos temporários comuns ===
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# === Arquivos de build (caso use ferramentas de síntese) ===
+*.rpt
+*.summary
+*.map
+*.sdf
+*.jou
+*.pb
+*.tcl
+*.xml
+*.bak
+*.tmp
+*.log
