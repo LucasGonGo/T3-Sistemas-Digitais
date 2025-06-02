@@ -74,8 +74,6 @@ always@(posedge clock_10KHz, posedge reset) begin
         len_out <= 0;
     end // if reset
     else begin 
-        done_dequeueing <= 0;
-        done_queueing <= 0;
         case(EA)
             WAITING:begin
                 done_dequeueing <= 0;
@@ -83,19 +81,20 @@ always@(posedge clock_10KHz, posedge reset) begin
             end
 
             ENQUEUE:begin
-                if(len_out < 3'd8) begin
-                    queue[tail_ptr] <= data_in;
-                    $display("data_in: %s queue: %s \n", data_in, queue[tail_ptr]);
-                    tail_ptr <= (tail_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
-                    len_out <= len_out + 1;
-                    done_queueing <= 1;
-                end // if len < 8
+                if(!done_queueing) begin
+                        queue[tail_ptr] <= data_in;
+                        tail_ptr <= (tail_ptr == 8)? 0:tail_ptr+1; // garante que os ptr sempre estarão entre 0 e 7
+                        if(len_out != 3'd8) 
+                            begin 
+                                len_out <= len_out + 1;
+                                done_queueing <= 1;
+                            end
+                end
             end
 
             DEQUEUE:begin
                 if(len_out > 0) begin
                     data_out <= queue[head_ptr];
-                    $display("data_out: %s queue: %s \n", data_in, queue[head_ptr]);
                     head_ptr<= (head_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
                     len_out <= len_out - 1;
                     done_dequeueing <= 1;

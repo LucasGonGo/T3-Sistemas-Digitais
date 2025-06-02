@@ -52,12 +52,6 @@ initial begin
         end
             #200000;
 
-            enqueue_in = 1;
-            #100000;
-            enqueue_in = 0;
-
-            #200000;
-
             dequeue_in = 1;
             #100000;
             dequeue_in = 0;
