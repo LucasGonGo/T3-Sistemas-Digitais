@@ -73,7 +73,7 @@ FILA queue(
             len_out_prev <= 0;
             check_ack <= 0;
         end else begin
-            if (len_out > len_out_prev) begin
+            if (len_out != len_out_prev) begin
                 check_ack <= 1;
             end else begin
                 check_ack <= 0;

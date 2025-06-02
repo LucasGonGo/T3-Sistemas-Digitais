@@ -23,6 +23,7 @@ typedef enum logic [1:0] {
 
 state_des EA = READING;
 logic [3:0]count;
+logic enable_start = 1;
 
 
 always@(posedge clock_100KHz, posedge reset) begin
@@ -30,22 +31,29 @@ always@(posedge clock_100KHz, posedge reset) begin
             data_out <= 0;
             data_ready <= 0;
             count <= 0;
+            EA <= READING;
+            enable_start <= 1;
+            status_out <= 1;
         end // if reset
         else begin
             case(EA) 
                 READING:begin
-                    if(write_in) begin
-                        data_out[count] <= data_in;
-                        count <= count + 1;
-                        if(count == 4'd7) begin
-                            data_ready <= 1;
-                            status_out <= 0;
-                            EA <= WAITING;
-                        end else
-                            begin
-                                status_out <= 1;
-                            end
-                    end        
+                    if(enable_start) begin 
+                        enable_start <= 0; status_out <= 1; 
+                    end else // if enable_start
+                        if(status_out) begin
+                            if(write_in) begin
+                                    data_out[count] <= data_in;
+                                    count <= count + 1;
+                                if(count == 4'd7) begin
+                                    data_ready <= 1;
+                                    status_out <= 0;
+                                    EA <= WAITING;
+                                end else begin
+                                            status_out <= 1;
+                                         end
+                        end // if write_in
+                    end       //if status_out
                 end // READING 
 
                 WAITING:begin   
