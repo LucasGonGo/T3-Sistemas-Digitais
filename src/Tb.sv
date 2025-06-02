@@ -51,7 +51,7 @@ initial begin
             #10000;
         end
 
-        @(negedge status);
+        @(status); // espera o des terminar
             #200_000;
 
             enqueue_in = 1;
