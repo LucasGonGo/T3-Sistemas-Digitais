@@ -24,7 +24,7 @@ TOP dut(
 );
 
 always begin
-       #500; clock <= ~clock; // clock de 1 MHz
+       #500; clk <= ~clk; // clock de 1 MHz
    end
 
 integer index;
@@ -33,7 +33,7 @@ logic [0:7] send_data = 8'b10000000;
 
 
 initial begin
-   reset = 1;
+   rst = 1;
    data_in = 0;
    write_in = 0;
    dequeue_in = 0;
