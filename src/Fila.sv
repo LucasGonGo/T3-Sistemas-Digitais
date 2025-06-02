@@ -39,9 +39,9 @@ always@(posedge clock_10KHz, posedge reset) begin
     else begin
         case(EA) 
             WAITING:begin
-                if(enqueue_in) begin
+                if(enqueue_in && !done_queueing) begin
                     EA <= ENQUEUE;
-                end else if(dequeue_in) begin
+                end else if(dequeue_in && !done_dequeueing) begin
                     EA <= DEQUEUE;
                 end else begin
                     EA <= WAITING;
@@ -93,16 +93,15 @@ always@(posedge clock_10KHz, posedge reset) begin
             end
 
             DEQUEUE:begin
-                if(len_out > 0) begin
-                    data_out <= queue[head_ptr];
-                    head_ptr<= (head_ptr + 1) % 8; // garante que os ptr sempre estarão entre 0 e 7
-                    len_out <= len_out - 1;
-                    done_dequeueing <= 1;
-                end // if len < 8
-                else begin
-                    data_out <= 8'b0; // isso seria um erro, fila vazia
-                    $display("erro, fila menos que 0");
-                    done_dequeueing <= 1;
+                if(!done_dequeueing) begin
+                        data_out <= queue[head_ptr];
+                        head_ptr <= (head_ptr == 8 || head_ptr == 0)? 0:head_ptr-1; // garante que os ptr sempre estarão entre 0 e 7
+                        done_dequeueing <= 1;
+                        if(len_out <= 0) 
+                            begin 
+                                data_out <= 0;
+                                done_deueueing <= 1;
+                            end
                 end
             end
 
