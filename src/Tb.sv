@@ -31,9 +31,9 @@ integer index;
 integer words;
 logic [7:0] send_data;
 
-task send_byte(input [7:0] byte);
+task send_byte(input [7:0] my_byte);
     for(index = 0; index < 8; index = index + 1) begin
-        data_in = byte[index];
+        data_in = my_byte[index];
         write_in = 1;
         #10000; // 10us
         write_in = 0;
