@@ -81,27 +81,26 @@ always@(posedge clock_10KHz, posedge reset) begin
             end
 
             ENQUEUE:begin
-                if(!done_queueing) begin
+                if(!done_queueing && len_out < 8) begin
                         queue[tail_ptr] <= data_in;
-                        tail_ptr <= (tail_ptr == 8)? 0:tail_ptr+1; // garante que os ptr sempre estarão entre 0 e 7
-                        if(len_out != 3'd8) 
-                            begin 
-                                len_out <= len_out + 1;
-                                done_queueing <= 1;
-                            end
+                        tail_ptr <= (tail_ptr == 3'd7) ? 0 : tail_ptr + 1; // garante que os ptr sempre estarão entre 0 e 7
+                        len_out <= len_out + 1;
+                        done_queueing <= 1;
                 end
             end
 
             DEQUEUE:begin
                 if(!done_dequeueing) begin
-                        data_out <= queue[head_ptr];
-                        head_ptr <= (head_ptr == 8 || head_ptr == 0)? 0:head_ptr-1; // garante que os ptr sempre estarão entre 0 e 7
-                        done_dequeueing <= 1;
-                        if(len_out <= 0) 
-                            begin 
-                                data_out <= 0;
-                                done_dequeueing <= 1;
-                            end
+                    if(len_out > 0) 
+                        begin 
+                            data_out <= queue[head_ptr];
+                            head_ptr <= (head_ptr + 1) % 8;
+                            len_out <= len_out - 1;
+                            done_dequeueing <= 1;
+                        end else begin
+                            data_out <= 0; // fila vazia
+                            done_dequeueing <= 1;
+                        end
                 end
             end
 
