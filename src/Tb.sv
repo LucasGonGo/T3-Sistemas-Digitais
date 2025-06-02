@@ -50,21 +50,19 @@ initial begin
             write_in = 0;
             #10000;
         end
-
-        @(status); // espera o des terminar
-            #200_000;
+            #200000;
 
             enqueue_in = 1;
-            #100_000;
+            #100000;
             enqueue_in = 0;
 
-            #200_000;
+            #200000;
 
             dequeue_in = 1;
-            #100_000;
+            #100000;
             dequeue_in = 0;
 
-            #200_000;
+            #200000;
     end
 end
 
