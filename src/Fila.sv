@@ -100,7 +100,7 @@ always@(posedge clock_10KHz, posedge reset) begin
                         if(len_out <= 0) 
                             begin 
                                 data_out <= 0;
-                                done_deueueing <= 1;
+                                done_dequeueing <= 1;
                             end
                 end
             end
