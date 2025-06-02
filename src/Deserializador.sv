@@ -33,7 +33,7 @@ always@(posedge clock_100KHz, posedge reset) begin
             count <= 0;
             EA <= READING;
             enable_start <= 1;
-            status_out <= 1;
+            status_out <= 0; // tem que zerar pro posedge do tb funcionar
         end // if reset
         else begin
             case(EA) 
