@@ -74,7 +74,6 @@ initial begin
          end
 
             $display("✅ Caso bom executado: fila parcialmente esvaziada sem travamento.");
-      $finish; 
     end
 end    
 
