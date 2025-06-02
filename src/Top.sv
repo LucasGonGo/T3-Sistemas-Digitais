@@ -68,7 +68,7 @@ FILA queue(
         end
     end
 
-    always@(posedge clock_1MHz, posedge rst) begin // guarda o len antigo para comparar com o novo
+    always@(posedge clk_100KHz, posedge rst) begin // guarda o len antigo para comparar com o novo, usa 100Khz pq controla pro des
         if(rst) begin
             len_out_prev <= 0;
             check_ack <= 0;
