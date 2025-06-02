@@ -30,6 +30,7 @@ always begin
 integer index;
 integer words;
 logic [0:7] send_data = 8'b10000000;
+integer count_deque;
 
 
 initial begin
@@ -45,7 +46,7 @@ initial begin
     forever begin
         @(posedge status);
         #10000;
-        for(words = 0; words < 4; words = words + 1)begin
+        for(words = 0; words < 8; words = words + 1)begin
             for(index = 0; index < 8; index = index + 1) begin
 
                 data_in = send_data[index];
@@ -58,28 +59,13 @@ initial begin
             send_data = send_data + 1;
         end    
          #300000;
-         dequeue_in = 1; 
-         #200000;
-         dequeue_in = 0; 
-         #600000;
 
-         #300000;
-         dequeue_in = 1; 
-         #200000;
-         dequeue_in = 0; 
-         #600000;
-
-         #300000;
-         dequeue_in = 1; 
-         #200000;
-         dequeue_in = 0; 
-         #600000;
-
-         #300000;
-         dequeue_in = 1; 
-         #200000;
-         dequeue_in = 0; 
-         #600000;
+         for(count_deque = 0; count_deque < 4; count_deque = count_deque + 1) begin
+                dequeue_in = 1; 
+              #200000;
+                dequeue_in = 0; 
+              #600000;
+         end
          
       $finish; 
     end
