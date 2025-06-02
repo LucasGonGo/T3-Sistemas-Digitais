@@ -94,6 +94,7 @@ always@(posedge clock_10KHz, posedge reset) begin
                     if(len_out > 0) 
                         begin 
                             data_out <= queue[head_ptr];
+                            queue[head_ptr] <= 0; 
                             head_ptr <= (head_ptr + 1) % 8;
                             len_out <= len_out - 1;
                             done_dequeueing <= 1;
