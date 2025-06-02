@@ -23,41 +23,66 @@ TOP dut(
     .data_out(data_out)
 );
 
-always #500 clk = ~clk; // 1MHz = 1us = 1000ns, muda o sinal na metade do periodo total (500ns).
+always begin
+       #500; clock <= ~clock; // clock de 1 MHz
+   end
 
-    integer i;
-    logic [7:0] send_data = 8'b10011001;
+integer index;
+integer words;
+logic [0:7] send_data = 8'b10000000;
+
 
 initial begin
-    rst = 1;
-    data_in = 0;
-    write_in = 0;
-    enqueue_in = 0;
-    dequeue_in = 0;
+   reset = 1;
+   data_in = 0;
+   write_in = 0;
+   dequeue_in = 0;
 
     #2500;
-    rst = 0;
+    reset = 0;
     #4000;
 
     forever begin
         @(posedge status);
         #10000;
-        for(i = 0; i<8; i = i+1) begin
+        for(words = 0; words < 4; words = words + 1)begin
+            for(index = 0; index < 8; index = index + 1) begin
 
-            data_in = send_data[i];
-            write_in = 1;
-            #10000;
-            write_in = 0;
-            #10000;
-        end
-            #200000;
+                data_in = send_data[index];
+                write_in = 1;
+                #10000;
+                write_in = 0;
+                #10000;
+            end 
+            #300000;
+            send_data = send_data + 1;
+        end    
+         #300000;
+         dequeue_in = 1; // ranca fora 1
+         #200000;
+         dequeue_in = 0; // desiste de rancar fora
+         #600000;
 
-                dequeue_in = 1;
-            #100000;
-                dequeue_in = 0;
+         #300000;
+         dequeue_in = 1; // ranca fora 1
+         #200000;
+         dequeue_in = 0; // desiste de rancar fora
+         #600000;
 
-            #200000;
+         #300000;
+         dequeue_in = 1; // ranca fora 1
+         #200000;
+         dequeue_in = 0; // desiste de rancar fora
+         #600000;
+
+         #300000;
+         dequeue_in = 1; // ranca fora 1
+         #200000;
+         dequeue_in = 0; // desiste de rancar fora
+         #600000;
+         
+      $finish; // finaliza simulação
     end
-end
+end    
 
-endmodule
+ endmodule
