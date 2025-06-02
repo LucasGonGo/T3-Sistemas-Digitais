@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 
-module tb();
+module tb #();
 
 logic clk = 0;
 logic rst;
@@ -10,6 +10,7 @@ logic [7:0] data_out;
 logic write_in;
 logic enqueue_in;
 logic dequeue_in;
+
 
 TOP dut(
     .clock_1MHz(clk), // 1MHz = 10⁶
@@ -22,74 +23,66 @@ TOP dut(
     .data_out(data_out)
 );
 
-// Clock 1MHz: período de 1us (1000ns)
 always begin
-    #500 clk <= ~clk; // 1 MHz clock: 500ns HIGH, 500ns LOW
-end
+       #500; clk <= ~clk; // clock de 1 MHz, 50% duty cicle
+   end
 
 integer index;
 integer words;
-logic [7:0] send_data;
+logic [0:7] send_data = 8'b10000000;
 
-task send_byte(input [7:0] my_byte);
-    for(index = 0; index < 8; index = index + 1) begin
-        data_in = my_byte[index];
-        write_in = 1;
-        #10000; // 10us
-        write_in = 0;
-        #10000;
-    end
-    enqueue_in = 1;
-    #20000;
-    enqueue_in = 0;
-endtask
-
-task dequeue_one();
-    dequeue_in = 1;
-    #20000;
-    dequeue_in = 0;
-endtask
 
 initial begin
-    // Inicialização
-    rst = 1;
-    data_in = 0;
-    write_in = 0;
-    dequeue_in = 0;
-    enqueue_in = 0;
-    send_data = 8'b10000000;
+   rst = 1;
+   data_in = 0;
+   write_in = 0;
+   dequeue_in = 0;
 
-    // Reset por 2.5us
     #2500;
     rst = 0;
-    #5000;
+    #4000;
 
-    // Teste 1: Enfileira 8 bytes (fila cheia)
-    for (words = 0; words < 8; words++) begin
-        wait(status); // espera estar pronto
-        send_byte(send_data);
-        send_data++;
-        #100000; // intervalo entre mensagens
+    forever begin
+        @(posedge status);
+        #10000;
+        for(words = 0; words < 4; words = words + 1)begin
+            for(index = 0; index < 8; index = index + 1) begin
+
+                data_in = send_data[index];
+                write_in = 1;
+                #10000;
+                write_in = 0;
+                #10000;
+            end 
+            #300000;
+            send_data = send_data + 1;
+        end    
+         #300000;
+         dequeue_in = 1; 
+         #200000;
+         dequeue_in = 0; 
+         #600000;
+
+         #300000;
+         dequeue_in = 1; 
+         #200000;
+         dequeue_in = 0; 
+         #600000;
+
+         #300000;
+         dequeue_in = 1; 
+         #200000;
+         dequeue_in = 0; 
+         #600000;
+
+         #300000;
+         dequeue_in = 1; 
+         #200000;
+         dequeue_in = 0; 
+         #600000;
+         
+      $finish; 
     end
+end    
 
-    // Teste 2: Desenfileira todos
-    for (words = 0; words < 8; words++) begin
-        #100000;
-        dequeue_one();
-        #200000;
-    end
-
-    // Teste 3: Intercalar enfileira e desenfileira
-    for (words = 0; words < 4; words++) begin
-        send_byte(send_data);
-        #50000;
-        dequeue_one();
-        send_data++;
-        #100000;
-    end
-
-    $display("Testbench finalizado.");
-    $finish;
-end
-
-endmodule
+ endmodule
