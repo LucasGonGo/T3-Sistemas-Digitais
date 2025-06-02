@@ -51,6 +51,12 @@ initial begin
             #10000;
         end
             #200000;
+
+                dequeue_in = 1;
+            #100000;
+                dequeue_in = 0;
+
+            #200000;
     end
 end
 
