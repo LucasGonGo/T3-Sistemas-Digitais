@@ -39,7 +39,7 @@ initial begin
    dequeue_in = 0;
 
     #2500;
-    reset = 0;
+    rst = 0;
     #4000;
 
     forever begin
