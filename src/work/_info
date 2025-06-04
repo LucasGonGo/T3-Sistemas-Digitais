@@ -1,0 +1,122 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11f vlog 2021.3 2021.07, Jul 13 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/l.goncalves014/Desktop/T3-Sistemas-Digitais/src
+T_opt
+!s110 1749035587
+VYW;lVzY3[zMPYafI5WVSi1
+04 2 4 work tb fast 0
+=1-000ae431a4f1-68402a42-7cbd8-e5d
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2021.3;73
+R0
+vDESERIALIZADOR
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z3 !s110 1749035857
+!i10b 1
+!s100 ZD`n[PP;KeDZ8TUlzFfO@0
+I;[?9m8e=5PjlF5J5jU6_C0
+S1
+R0
+Z4 w1749024204
+8Deserializador.sv
+FDeserializador.sv
+!i122 2
+L0 1 72
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2021.3;73
+r1
+!s85 0
+31
+Z7 !s108 1749035857.000000
+!s107 Deserializador.sv|
+!s90 -reportprogress|300|-work|work|Deserializador.sv|
+!i113 0
+Z8 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+n@d@e@s@e@r@i@a@l@i@z@a@d@o@r
+vFILA
+R2
+R3
+!i10b 1
+!s100 Edn=OL>;hMz^o<;O8aC7]2
+IceKZS82@2_@X:a<eiE@gB2
+S1
+R0
+R4
+8Fila.sv
+FFila.sv
+!i122 1
+L0 1 114
+R5
+R6
+r1
+!s85 0
+31
+R7
+!s107 Fila.sv|
+!s90 -reportprogress|300|-work|work|Fila.sv|
+!i113 0
+R8
+R1
+n@f@i@l@a
+vtb
+R2
+R3
+!i10b 1
+!s100 ^lZFFo2o8>DYVUKCOZ4722
+I3gk5>bTjA0cWfGQ@4CB;M0
+S1
+R0
+R4
+8Tb.sv
+FTb.sv
+!i122 3
+L0 3 78
+R5
+R6
+r1
+!s85 0
+31
+R7
+!s107 Tb.sv|
+!s90 -reportprogress|300|-work|work|Tb.sv|
+!i113 0
+R8
+R1
+vTOP
+R2
+R3
+!i10b 1
+!s100 zWOeT4hYoWVRdlT>XF:5c1
+IHjIzLhe@5QPmW<GZ<T8n;2
+S1
+R0
+R4
+8Top.sv
+FTop.sv
+!i122 0
+L0 1 86
+R5
+R6
+r1
+!s85 0
+31
+!s108 1749035856.000000
+!s107 Top.sv|
+!s90 -reportprogress|300|-work|work|Top.sv|
+!i113 0
+R8
+R1
+n@t@o@p
