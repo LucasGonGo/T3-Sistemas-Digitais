@@ -143,3 +143,4 @@ do sim.do
 # Loading work.FILA(fast)
 # ✅ Deserializador travou corretamente com fila cheia (status = 1).
 # ✅ Caso bom executado: fila parcialmente esvaziada sem travamento.
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf /home/l.goncalves014/Desktop/T3-Sistemas-Digitais/src/wave.do
