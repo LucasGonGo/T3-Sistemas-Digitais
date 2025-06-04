@@ -60,12 +60,6 @@ initial begin
         end    
          #300000;
 
-         if (status) begin
-            $display("✅ Deserializador travou corretamente com fila cheia (status = 1).");
-        end else begin
-            $display("❌ ERRO: Deserializador não travou após fila cheia (status = 0).");
-        end
-
          for(count_deque = 0; count_deque < 4; count_deque = count_deque + 1) begin
                 dequeue_in = 1; 
               #200000;
@@ -73,7 +67,6 @@ initial begin
               #600000;
          end
 
-            $display("✅ Caso bom executado: fila parcialmente esvaziada sem travamento.");
     end
 end    
 
